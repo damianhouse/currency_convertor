@@ -27,6 +27,10 @@ class Currency
     puts @amount.to_f - other.number.to_f
   end
 
+  def *(other)
+    puts @amount.to_f * other.number.to_f
+  end
+
   def type
     if @hash.has_key?(@amount.chars.first)
       puts "WE GOT THIS SHIT B!"
@@ -41,4 +45,4 @@ myAmount.type
 otherAmount = Currency.new("3.0")
 otherAmount.type
 
-puts myAmount - otherAmount
+puts myAmount * otherAmount
