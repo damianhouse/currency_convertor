@@ -4,24 +4,40 @@ class Currency
     @amount = amount
   end
 
+  def +(other)
+    puts @amount.to_f + other.number.to_f
+  end
+
+  def number
+    @amount
+  end
+
+  def code
+    @code
+  end
+
   def type
     if @amount.include?("$")
-      @amount[1..-1]
-      @amount_type = :USD
-      @no_sym_amount = @amount[1..-1]
+      @amount = @amount[1..-1].to_f
+      @code = :USD
     elsif @amount.include?("€")
-      @amount[1..-1]
-      @amount_type = :EUR
-      @no_sym_amount = @amount[1..-1]
+      @amount = @amount[1..-1].to_f
+      @code = :EUR
     elsif @amount.include?("¥")
-      @amount[1..-1]
-      @amount_type = :JPY
-      @no_sym_amount = @amount[1..-1]
+      @amount = @amount[1..-1].to_f
+      @code = :JPY
+    elsif (@amount.number.to_f.to_s == 0.0) || (@amount.number.to_i.to_s == 0)
+      puts "UndefinedCurrencyInClass"
     else
-      puts "DifferentCountryCodeError"
+      @amount.to_f
     end
   end
 end
 
-myAmount = Currency.new("€1.4")
-print myAmount.type
+
+myAmount = Currency.new("1.4")
+myAmount.type
+otherAmount = Currency.new("$2.0")
+otherAmount.type
+
+puts myAmount + otherAmount
