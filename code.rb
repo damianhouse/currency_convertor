@@ -1,2 +1,2 @@
-require './currency_converter'
+require './currencyConverter'
 require './currency'

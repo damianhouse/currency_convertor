@@ -1,3 +1,3 @@
-class Currency_converter
+class CurrencyConverter
 
 end
