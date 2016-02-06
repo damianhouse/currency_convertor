@@ -63,9 +63,9 @@ class Currency
 
   def ==(other)
     byebug
-    if @code = other.code && (@amount[1..-1]) = other.number.to_f
-      byebug
-      Currency.new(@amount.to_f == other.amount.to_f).amount
+    if @code == other.code
+      return true unless @amount != other.amount
+      puts "The amounts aren't equal"
     else
       raise DifferentCurrencyCodeError
     end
