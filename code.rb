@@ -1,2 +1,1 @@
 require './currencyConverter'
-require './currency'
