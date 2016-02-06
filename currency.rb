@@ -1,4 +1,3 @@
-require 'byebug'
 require './DifferentCurrencyCodeError'
 
 class Currency
@@ -31,7 +30,6 @@ class Currency
 
   def +(other)
     if @code == other.code
-      byebug
       Currency.new((@amount[1..-1]).to_f + other.number.to_f).amount
     elsif @no_code != ""
       Currency.new(@amount.to_f + @no_code.to_f).amount
@@ -54,7 +52,6 @@ class Currency
     if @code == other.code
       Currency.new((@amount[1..-1]).to_f * other.number.to_f).amount
     elsif @no_code != ""
-      byebug
       Currency.new(@amount.to_f * other.number.to_f).amount
     else
       raise DifferentCurrencyCodeError
@@ -62,7 +59,6 @@ class Currency
   end
 
   def ==(other)
-    byebug
     if @code == other.code
       return true unless @amount != other.amount
       puts "The amounts aren't equal"
