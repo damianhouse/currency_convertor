@@ -11,13 +11,14 @@ class CurrencyConverter
   def convert(number, code)
     number_code =  number.type
     number_number = number.number
-    byebug
-    if @currency_rates[number.type] == 1.0
+    if @country_codes[code] == nil
+      raise UnknownCountryCodeError
+    elsif @currency_rates[number.type] == 1.0
       converted_number = number_number.to_f * @currency_rates[code]
     else @currency_rates[number.type] >= 1.0
       converted_number = (number_number.to_f / @currency_rates[number.type]) * @currency_rates[code]
     end
-      puts "#{converted_number} #{code}"
+    puts "#{converted_number} #{code}"
   end
 
 end
