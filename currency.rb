@@ -1,15 +1,15 @@
 require 'byebug'
 require './DifferentCurrencyCodeError'
+
 class Currency
 
-  attr_accessor :code, :hash, :no_code, :amount, :number
-  COUNTRYCODES = {"$" => :USD,"€"  => :EUR,"¥"  => :JPY,}
+  attr_accessor :code, :hash, :no_code, :amount
+  COUNTRYCODES = {"$" => :USD,"€" => :EUR,"¥" => :JPY,}
 
   def initialize(amount)
     @amount = amount
     @code = ""
     @no_code = ""
-    @number = @amount[1..-1]
   end
 
   def type
@@ -22,9 +22,17 @@ class Currency
     end
   end
 
+  def number
+    if @code != ""
+      @number = @amount[1..-1]
+    end
+    @number
+  end
+
   def +(other)
     if @code == other.code
-      Currency.new(@amount.to_f + other.amount.to_f).amount
+      byebug
+      Currency.new((@amount[1..-1]).to_f + other.number.to_f).amount
     elsif @no_code != ""
       Currency.new(@amount.to_f + @no_code.to_f).amount
     else
@@ -34,9 +42,9 @@ class Currency
 
   def -(other)
     if @code == other.code
-      Currency.new(@amount.number.to_f - other.number.to_f).amount
+      Currency.new((@amount[1..-1]).to_f - other.number.to_f).amount
     elsif @no_code != ""
-      Currency.new(@amount.to_f - @no_code.to_f).amount
+      Currency.new(@amount.to_f - other.number.to_f).amount
     else
       raise DifferentCurrencyCodeError
     end
@@ -44,16 +52,19 @@ class Currency
 
   def *(other)
     if @code == other.code
-      Currency.new(@amount.to_f * other.amount.to_f).amount
+      Currency.new((@amount[1..-1]).to_f * other.number.to_f).amount
     elsif @no_code != ""
-      Currency.new(@amount.to_f * @no_code.to_f).amount
+      byebug
+      Currency.new(@amount.to_f * other.number.to_f).amount
     else
       raise DifferentCurrencyCodeError
     end
   end
 
   def ==(other)
-    if @code == other.code
+    byebug
+    if @code = other.code && (@amount[1..-1]) = other.number.to_f
+      byebug
       Currency.new(@amount.to_f == other.amount.to_f).amount
     else
       raise DifferentCurrencyCodeError
@@ -68,4 +79,4 @@ myAmount.type
 otherAmount = Currency.new("$4.0")
 otherAmount.type
 
-puts myAmount - otherAmount
+puts myAmount == otherAmount
