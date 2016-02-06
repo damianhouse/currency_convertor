@@ -1,5 +1,3 @@
-require './DifferentCurrencyCodeError'
-
 class Currency
 
   attr_accessor :code, :hash, :no_code, :amount
@@ -25,7 +23,7 @@ class Currency
     if @code != ""
       @number = @amount[1..-1]
     end
-    @number
+      @number
   end
 
   def +(other)
@@ -68,11 +66,3 @@ class Currency
   end
 
 end
-
-
-myAmount = Currency.new("$16.0")
-myAmount.type
-otherAmount = Currency.new("$4.0")
-otherAmount.type
-
-puts myAmount == otherAmount

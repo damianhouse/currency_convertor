@@ -1,0 +1,3 @@
+class UnknownCountryCodeError < StandardError
+
+end
